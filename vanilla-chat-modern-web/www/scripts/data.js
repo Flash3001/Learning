@@ -16,7 +16,7 @@ function getDataModel() {
     };
 
     // helpers
-    var requestToProm = request => new Promise((resolve, reject) => {
+    var requestToProm = (request) => new Promise((resolve, reject) => {
         request.onsuccess = e => resolve(request.result);
         request.onerror = e => reject(request.error);
     });
