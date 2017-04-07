@@ -1,11 +1,11 @@
 self.addEventListener("install", function(event) {
     event.waitUntil(caches.open("v1").then(function(cache) {
         return cache.addAll([
-            "/index.css",
-            "/index.js",
-            "/data.js",
-            "/manager.js",
-            "/socket.js",
+            "/styles/index.css",
+            "/scripts/index.js",
+            "/scripts/data.js",
+            "/scripts/manager.js",
+            "/scripts/socket.js",
             "/service.worker.js",
             "/"
         ]);
