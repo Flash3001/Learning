@@ -1,0 +1,103 @@
+body {
+    height: 100%;
+    margin: 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: #1493da;
+}
+
+#header {
+    display: flex;
+    align-items: center;
+    
+    flex: 0 0 40px;
+    padding: 10px;
+    color: rgb(255, 255, 255);
+    border-bottom: solid 2px rgba(0, 0, 0, 0.45);
+    padding-bottom: 5px;
+    background-color: rgba(3, 5, 51, 0.55);
+}
+
+#header h1 {
+    flex: 1 1 auto;
+    margin: 0px;
+    font-size: 1.8em;
+    font-family: fantasy;
+}
+
+#header input, label {
+    color: white;
+    padding: 8px;
+    border: none;
+    border-bottom: solid 1px rgba(240, 255, 255, 0.66);
+    font-size: 1em;
+}
+
+#header input {
+    background: rgba(204, 204, 204, 0.24);
+}
+
+#header label {
+    background: rgba(204, 204, 204, 0.4)
+}
+
+#msgs {
+    flex: 1 1 auto;
+    padding: 10px;
+    color:  black;
+    font-family: monospace;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#msgs div.local {
+    align-items: flex-end;
+}
+
+#msgs div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#msgs div p {
+    background-color: rgba(255, 255, 255, 0.8);
+    margin: 5px;
+    padding: 5px;
+    border-radius: 4px;
+    box-shadow: 2px 1px 5px 0px rgba(9, 0, 64, 0.79);
+}
+
+#msgs div p span {
+    padding: 5px;
+    border-left: solid 1px rgba(0, 0, 0, 0.23);
+    margin-left: 5px;
+    height: 100%;
+    color: rgba(0, 0, 0, 0.77);
+}
+
+#footer {
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.44);
+    display: flex;
+    margin: 0px;
+    flex: 0 0 auto;
+}
+
+#footer input {
+    color: white;
+    padding: 8px;
+    border: none;
+    border-bottom: solid 2px;
+    font-size: 1em;
+}
+
+#footer input:first-child {
+    flex: 1 1 auto;
+    text-indent: 10px;
+    background: rgba(204, 204, 204, 0.24);
+}
+
+#footer input:last-child {
+    background:  rgba(204, 204, 204, 0.4)
+}

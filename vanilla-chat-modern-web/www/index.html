@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Chat Room</title>
+        <link rel="stylesheet" type="text/css" href="index.css">
+        <script>
+            navigator.serviceWorker.register("service.worker.js");
+        </script>
+        <script src="data.js"></script>
+        <script src="socket.js"></script>
+        <script src="manager.js"></script>
+    </head>
+    <body>
+        <div id="header">
+            <h1>Mensagens</h1>
+            <label>U</label>
+            <input id="user" type="text" value="Anonimo" />
+        </div>
+        <section id="msgs"></section>
+        <div id="footer">
+            <input id="input" type="text" />
+            <input id="submit" type="button" value="enviar" /> 
+        </div>
+        <script src="index.js"></script>
+    </body>
+</html>
