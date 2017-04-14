@@ -2,16 +2,12 @@
 
 function getManager() {
     var dataModel = getDataModel();
-    var socket = undefined;
-
+    var connection = getConnection();
+    
     // send and receive messages
-    function receiveMessage(msg) {
-        ret.receiveMessage(msg);
-    }
-
     function sendMessage(msg) {
-        if (socket.isOpen()) {
-            return Promise.resolve(socket.send(msg));
+        if (connection.isOpen()) {
+            return Promise.resolve(connection.send(msg));
         } else {
             return dataModel.addMsg(msg);
         }
@@ -19,23 +15,21 @@ function getManager() {
 
     function sendOfflineMessages() {
         function sendMsgs(msgs) {
-            if (socket.isOpen() === false || msgs.length < 1) return;
+            if (connection.isOpen() === false || msgs.length < 1) return;
             
             var msg = msgs.shift();
-            socket.send(msg);
+            connection.send(msg);
             dataModel.confirmMsgSent(msg).then(() => sendMsgs(msgs));
         }
 
         dataModel.getMsgsToSend().then(sendMsgs);
     }
 
-    // interface
-    var ret = { 
-        sendMessage,
-        receiveMessage: (msg) => { } // should be replaced by the user.
-    };
+    // plugs
+    connection.openStream.subscribe(sendOfflineMessages);
 
-    return getSocket({ onMessage: receiveMessage, onOpen: sendOfflineMessages })
-        .then(s => socket = s)
-        .then(s => ret);
+    return { 
+        sendMessage,
+        receiveStream: connection.receiveStream,
+    };
 };

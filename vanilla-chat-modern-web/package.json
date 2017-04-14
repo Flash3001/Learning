@@ -4,7 +4,9 @@
   "description": "receive and send chat messages",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "vendors": "copy node_modules\\rxjs\\bundles\\Rx.min.js www\\vendors\\",
+    "build": "npm run vendors", 
+    "start": "npm run build && node app.js"
   },
   "author": "",
   "license": "ISC",

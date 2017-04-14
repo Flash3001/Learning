@@ -68,11 +68,12 @@ body {
     box-shadow: 2px 1px 5px 0px rgba(9, 0, 64, 0.79);
 }
 
-#msgs div p span {
-    padding: 5px;
-    border-left: solid 1px rgba(0, 0, 0, 0.23);
-    margin-left: 5px;
-    height: 100%;
+#msgs div p span:nth-child(2) {
+    padding: 2px;
+    border-top: solid 1px rgba(0, 0, 0, 0.23);
+    margin-top: 5px;
+    display: block;
+    text-align: right;
     color: rgba(0, 0, 0, 0.77);
 }
 

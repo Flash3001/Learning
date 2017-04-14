@@ -1,46 +1,86 @@
  'use strict';
  
- getManager().then(manager => {
-    var input = document.getElementById("input");
-    var user = document.getElementById("user");
-    var submit = document.getElementById("submit");
+(function() {
+    const manager = getManager();
 
-    manager.receiveMessage = msg => appendMessage(msg);
-    submit.addEventListener("click", () => { send(); return false; });
+    const input = document.getElementById("input");
+    const user = document.getElementById("user");
+    const submit = document.getElementById("submit");
 
-    function appendMessage(data) {
+    var container = undefined;
+
+    // source streams
+    const submitStream = Rx.Observable
+        .fromEvent(submit, 'click')
+        .map(e => {
+            return  { 
+                time: new Date().getTime(),
+                msg:  input.value,
+                user: user.value,
+                source: "local"
+            };
+        })
+        .do(clearFocusInput)
+        .publish();
+
+    const receiveStream =  manager.receiveStream
+        .map(data => {
+             data.source = "server"; 
+             return data; 
+        })
+        .publish();
+
+    const sourceStream = Rx.Observable.merge(submitStream, receiveStream);
+
+    const windowStream = sourceStream
+        .map(x => x.user)
+        .distinctUntilChanged()
+        .subscribe(newContainer);
+
+    // append to html
+    sourceStream.subscribe(appendMessage);
+
+    // send to server
+    submitStream.subscribe(manager.sendMessage);
+
+    // ... ?
+    submitStream.connect();
+    receiveStream.connect();
+
+    // HTML handlers
+    function newContainer() {
         var p = document.createElement("p");
         var div = document.createElement("div");
-        var msgs = document.getElementById("msgs");
-        var user = document.createElement("span");
 
-        p.innerText = data.msg;
-        user.innerText = data.user;
+        container = {
+            msgs: [],
+            div: div,
+            text: document.createElement("span"),
+            user: document.createElement("span")
+        }
 
-        p.appendChild(user);
+        p.appendChild(container.text);
+        p.appendChild(container.user);
+
         div.appendChild(p);
-        msgs.appendChild(div);
 
-        msgs.scrollTop = msgs.scrollHeight;
-
-        return div;
+        document.getElementById("msgs").appendChild(div);
     }
 
-    function clearFocusInput() {
+    function appendMessage(data) {
+        container.msgs.push(data.msg);
+
+        container.text.innerText = container.msgs.join("\n");
+        container.user.innerText = data.user;       
+        container.div.className = data.source;
+
+        var msgs = document.getElementById("msgs");
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    // helpers
+    function clearFocusInput() {       
         input.value = "";
         input.focus();
     }
-
-    function send() {
-        var data = { 
-            time: new Date().getTime(),
-            msg: input.value,
-            user: user.value
-        };
-
-        appendMessage(data).className = "local";
-        manager.sendMessage(data).catch(err => console.log(err));
-        
-        clearFocusInput();
-    }
- });
+}());

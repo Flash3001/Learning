@@ -5,9 +5,9 @@ self.addEventListener("install", function(event) {
             "/scripts/index.js",
             "/scripts/data.js",
             "/scripts/manager.js",
-            "/scripts/socket.js",
-            "/service.worker.js",
-            "/"
+            "/scripts/connection.js",
+            "/vendors/Rx.min.js",
+            "/service.worker.js"
         ]);
     }));
 });
