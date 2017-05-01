@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Chat Room</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="styles/index.css">
         <script>
             navigator.serviceWorker.register("service.worker.js");
@@ -11,16 +12,20 @@
         <script src="scripts/manager.js"></script>
     </head>
     <body>
+        <div class="background"></div>
         <div id="header">
-            <h1>Mensagens</h1>
-            <label>U</label>
-            <input id="user" type="text" value="Anonimo" />
+            <h1>M</h1>
         </div>
         <section id="msgs"></section>
         <div id="footer">
             <input id="input" type="text" />
-            <input id="submit" type="button" value="enviar" /> 
+            <input id="submit" type="button" value="send" /> 
         </div>
+        <div id="namePopup">
+            <h1>Type your nick name</h1>
+            <input id="user" type="text" value="Anonimo" />
+            <input id="start" type="button" value="start" />    
+        <div>
         <script src="scripts/index.js"></script>
     </body>
 </html>

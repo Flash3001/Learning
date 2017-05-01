@@ -9,9 +9,17 @@
 
     var container = undefined;
 
+    // send events
+    const fromClickStream = Rx.Observable
+        .fromEvent(submit, 'click');
+
+    const fromEnterStream = Rx.Observable
+        .fromEvent(input, "keypress")
+        .filter(key => key.code == "Enter");
+
     // source streams
     const submitStream = Rx.Observable
-        .fromEvent(submit, 'click')
+        .merge(fromClickStream, fromEnterStream)
         .map(e => {
             return  { 
                 time: new Date().getTime(),
@@ -83,4 +91,18 @@
         input.value = "";
         input.focus();
     }
+
+    // start up
+    setTimeout(function() {
+        var namePopup = document.getElementById("namePopup");
+        var footer = document.getElementById("footer");
+
+        namePopup.classList.add("active");
+        
+        document.getElementById("start")
+                .addEventListener("click", () => {
+                    namePopup.classList.remove("active");
+                    footer.classList.add("active");
+                });
+    }, 0);
 }());

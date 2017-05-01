@@ -3,17 +3,25 @@ body {
     margin: 0px;
     display: flex;
     flex-direction: column;
-    background-color: #1493da;
+}
+
+body::before {
+    filter: blur(3px);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    content: '';
+    z-index: -1;
+    background: url(/img/background.jpg) no-repeat center;
 }
 
 #header {
     display: flex;
     align-items: center;
-    
-    flex: 0 0 40px;
+    flex: 0 0 28px;
     padding: 10px;
     color: rgb(255, 255, 255);
-    border-bottom: solid 2px rgba(0, 0, 0, 0.45);
+    border-bottom: solid 2px rgba(255, 255, 255, 0.69);
     padding-bottom: 5px;
     background-color: rgba(3, 5, 51, 0.55);
 }
@@ -21,8 +29,11 @@ body {
 #header h1 {
     flex: 1 1 auto;
     margin: 0px;
-    font-size: 1.8em;
-    font-family: fantasy;
+    font-size: 2em;
+    font-family: serif;
+    text-align: center;
+    color: rgba(117, 118, 143, 0.74);
+    text-shadow: -1px -1px 0px rgb(80, 80, 80), 0 0 40px rgba(255, 255, 255, 0.74);
 }
 
 #header input, label {
@@ -61,35 +72,57 @@ body {
 }
 
 #msgs div p {
-    background-color: rgba(255, 255, 255, 0.8);
-    margin: 5px;
-    padding: 5px;
-    border-radius: 4px;
-    box-shadow: 2px 1px 5px 0px rgba(9, 0, 64, 0.79);
+    background-color: rgba(244, 243, 245, 0.73);
+    margin: 10px 20px;
+    padding: 12px 8px 4px 12px;
+    min-width: 35vw;
+    border-radius: 10px 10px 10px 0px;
+    box-shadow: 0px 1px 2px 0px rgb(255, 126, 126);
 }
 
-#msgs div p span:nth-child(2) {
-    padding: 2px;
-    border-top: solid 1px rgba(0, 0, 0, 0.23);
-    margin-top: 5px;
-    display: block;
-    text-align: right;
+#msgs div p::after {
+    content: "";
+    background-color: red;
+}
+
+#msgs div.local p {
+    border-radius: 10px 10px 0px 10px;
+    box-shadow: 0px 1px 2px 0px rgb(146, 126, 255);
+}
+
+#msgs div p span:nth-child(1) {
     color: rgba(0, 0, 0, 0.77);
 }
 
-#footer {
-    padding: 10px;
+#msgs div p span:nth-child(2) {
+    font-size: 0.8em;
+    margin-top: 8px;
+    display: block;
+    text-align: right;
+    color: rgba(169, 169, 169, 0.8);
+    text-shadow: 0px 0px 8px #ffffff;
+}
+
+#footer {    
+    transform: scale(0);
+    padding: 0px;
     background-color: rgba(0, 0, 0, 0.44);
     display: flex;
-    margin: 0px;
+    margin: 30px 40px;
+    border: 2px solid rgba(255, 255, 255, 0.13);
     flex: 0 0 auto;
+    box-shadow: 0 8px 10px 0px rgba(8, 8, 8, 0.6);
+}
+
+#footer.active {
+    transition: 1s;
+    transform: none;
 }
 
 #footer input {
     color: white;
     padding: 8px;
     border: none;
-    border-bottom: solid 2px;
     font-size: 1em;
 }
 
@@ -101,4 +134,56 @@ body {
 
 #footer input:last-child {
     background:  rgba(204, 204, 204, 0.4)
+}
+
+#namePopup {
+    position: absolute;
+    visibility: hidden;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    padding: 10px;
+    background: #f5f5f5;
+    left: 30%;
+    top: -10vh;
+    border-radius: 6px;
+    box-shadow: 0px 2px 4px 0px rgba(195, 196, 255, 0.88);
+}
+
+#namePopup::before {
+    position: fixed;
+    content: '';
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: blur(8px);
+    background: url(/img/background.jpg) no-repeat center;
+}
+
+#namePopup.active {
+    visibility: visible;
+    transition: 1s;
+    top: 40vh;
+}
+
+#namePopup h1 {
+    margin: 0px;
+    color: #8c8c8c;
+    font-size: 1.8em;
+}
+
+#namePopup input:nth-child(2) {
+    border: 1px solid #e8e8e8;
+    margin: 20px 0px;
+    padding: 10px;
+}
+
+#namePopup input:nth-child(3) {
+    background: darkgrey;
+    color: white;
+    border: none;
+    padding: 8px;
+    font-size: 1em;
 }

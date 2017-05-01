@@ -1,13 +1,18 @@
 self.addEventListener("install", function(event) {
     event.waitUntil(caches.open("v1").then(function(cache) {
         return cache.addAll([
-            "/styles/index.css",
-            "/scripts/index.js",
-            "/scripts/data.js",
-            "/scripts/manager.js",
-            "/scripts/connection.js",
             "/vendors/Rx.min.js",
-            "/service.worker.js"
+            
+            "/service.worker.js",
+            
+            "/scripts/data.js",
+            "/scripts/connection.js",
+            "/scripts/manager.js",
+            "/scripts/index.js",
+            
+            "/img/background.jpg",
+
+            "/styles/index.css"
         ]);
     }));
 });
